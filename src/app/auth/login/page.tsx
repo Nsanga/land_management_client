@@ -78,7 +78,7 @@ export default function LoginPage() {
                 toast.success('Connexion réussie !');
                 router.push('/pages/dashboard');
             } else {
-                toast.error('Accès refusé !');
+                toast.error('Email ou mot de passe incorrect !');
             }
         } catch (error: unknown) {
             // Type guard to check if it's an error with a response
