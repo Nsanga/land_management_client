@@ -20,7 +20,7 @@ export default function RegisterPage() {
         firstName: '',
         lastName: '',
         email: '',
-        phone: '',
+        phoneNumber: '',
         organization: '',
         password: '',
         confirmPassword: '',
@@ -66,7 +66,7 @@ export default function RegisterPage() {
             } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
                 newErrors.email = 'Format d\'email invalide';
             }
-            if (!formData.phone) newErrors.phone = 'Le téléphone est requis';
+            if (!formData.phoneNumber) newErrors.phoneNumber = 'Le téléphone est requis';
         }
 
         if (step === 2) {
@@ -305,7 +305,7 @@ export default function RegisterPage() {
 
                             {/* Phone Field */}
                             <div>
-                                <label htmlFor="phone" className="block text-sm font-medium text-white/90 mb-2">
+                                <label htmlFor="phoneNumber" className="block text-sm font-medium text-white/90 mb-2">
                                     Téléphone
                                 </label>
                                 <div className="relative">
@@ -314,17 +314,17 @@ export default function RegisterPage() {
                                     </div>
                                     <input
                                         type="tel"
-                                        id="phone"
-                                        name="phone"
-                                        value={formData.phone}
+                                        id="phoneNumber"
+                                        name="phoneNumber"
+                                        value={formData.phoneNumber}
                                         onChange={handleInputChange}
-                                        className={`w-full pl-12 pr-4 py-3 bg-white/5 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${errors.phone ? 'border-red-400' : 'border-white/20'
+                                        className={`w-full pl-12 pr-4 py-3 bg-white/5 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${errors.phoneNumber ? 'border-red-400' : 'border-white/20'
                                             }`}
                                         placeholder="+237 6XX XX XX XX"
                                     />
                                 </div>
-                                {errors.phone && (
-                                    <p className="mt-1 text-xs text-red-400">{errors.phone}</p>
+                                {errors.phoneNumber && (
+                                    <p className="mt-1 text-xs text-red-400">{errors.phoneNumber}</p>
                                 )}
                             </div>
 
