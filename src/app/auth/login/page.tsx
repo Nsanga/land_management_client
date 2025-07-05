@@ -73,9 +73,13 @@ export default function LoginPage() {
 
         try {
             const user = await loginUserService(formData);
-            dispatch(loginSuccess(user));
-            toast.success('Connexion réussie !');
-            router.push('/pages/dashboard');
+            if (["citoyen"].includes(user.role)) {
+                dispatch(loginSuccess(user));
+                toast.success('Connexion réussie !');
+                router.push('/pages/dashboard');
+            } else {
+                toast.error('Accès refusé !');
+            }
         } catch (error: unknown) {
             // Type guard to check if it's an error with a response
             if (error instanceof Error && 'response' in error) {
