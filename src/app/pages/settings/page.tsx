@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { User, Mail, Phone, MapPin, Camera, Save, Eye, EyeOff, Shield, Bell, Palette, Globe } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Camera, Save, Eye, EyeOff, Shield, Bell } from 'lucide-react';
 
 interface UserProfile {
     firstName: string;
@@ -27,6 +27,19 @@ interface UserProfile {
     theme: 'light' | 'dark' | 'auto';
     language: string;
 }
+
+type LucideIcon = React.ComponentType<{
+    size?: number | string;
+    color?: string;
+    strokeWidth?: number | string;
+    className?: string;
+  }>;
+
+type UserProfileField = keyof UserProfile;
+type NestedSection = 'notifications' | 'privacy';
+type NotificationField = keyof UserProfile['notifications'];
+type PrivacyField = keyof UserProfile['privacy'];
+type TabId = "notifications" | "privacy" | "profile" | "security"; // Add all your tab IDs here
 
 export default function ProfileSettingsPage() {
     const [profile, setProfile] = useState<UserProfile>({
@@ -55,22 +68,29 @@ export default function ProfileSettingsPage() {
         language: 'fr'
     });
 
-    const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'notifications' | 'privacy'>('profile');
+    const [activeTab, setActiveTab] = useState<TabId>("profile"); 
     const [showPasswords, setShowPasswords] = useState({ current: false, new: false, confirm: false });
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleInputChange = (field: string, value: any) => {
+    const handleInputChange = <K extends UserProfileField>(
+        field: K,
+        value: UserProfile[K]
+    ) => {
         setProfile(prev => ({
             ...prev,
             [field]: value
         }));
     };
 
-    const handleNestedChange = (section: string, field: string, value: any) => {
+    const handleNestedChange = (
+        section: NestedSection,
+        field: NotificationField | PrivacyField,
+        value: boolean
+    ) => {
         setProfile(prev => ({
             ...prev,
             [section]: {
-                ...prev,
+                ...prev[section], // Garde les autres propriétés de la section
                 [field]: value
             }
         }));
@@ -84,7 +104,7 @@ export default function ProfileSettingsPage() {
         alert('Profil mis à jour avec succès !');
     };
 
-    const tabs = [
+    const tabs: { id: TabId; label: string; icon: LucideIcon }[] = [
         { id: 'profile', label: 'Profil', icon: User },
         { id: 'security', label: 'Sécurité', icon: Shield },
         { id: 'notifications', label: 'Notifications', icon: Bell },
@@ -122,10 +142,10 @@ export default function ProfileSettingsPage() {
                             return (
                                 <button
                                     key={tab.id}
-                                    onClick={() => setActiveTab(tab.id as any)}
+                                    onClick={() => setActiveTab(tab.id as TabId)}
                                     className={`flex items-center gap-3 px-6 py-4 font-semibold transition-all duration-300 whitespace-nowrap ${activeTab === tab.id
-                                            ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50'
-                                            : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/30'
+                                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50'
+                                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/30'
                                         }`}
                                 >
                                     <Icon size={20} />
@@ -397,7 +417,7 @@ export default function ProfileSettingsPage() {
 
                                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                                     <div>
-                                        <h3 className="font-semibold text-gray-800">Afficher l'email</h3>
+                                        <h3 className="font-semibold text-gray-800">Afficher l&apos;email</h3>
                                         <p className="text-sm text-gray-600">Rendre votre email visible sur votre profil</p>
                                     </div>
                                     <label className="relative inline-flex items-center cursor-pointer">

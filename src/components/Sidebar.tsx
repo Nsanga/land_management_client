@@ -2,8 +2,7 @@
 import React from 'react';
 import {
     MapPin, FileText, User, Settings,
-    Home, Users, BarChart3, Map, MessageSquare
-} from 'lucide-react';
+    Home, Users} from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { RootState } from '@/lib/store';
 import { useSelector } from 'react-redux';
