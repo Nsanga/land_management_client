@@ -120,7 +120,7 @@ export default function LoginPage() {
             <div className="relative w-full max-w-md">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <div className="flex items-center justify-center space-x-2 mb-4">
+                    <div onClick={() => router.push("/")} className="flex items-center justify-center space-x-2 mb-4 cursor-pointer">
                         <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
                             <MapPin className="w-7 h-7 text-white" />
                         </div>
