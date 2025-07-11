@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import PrivateRoute from "@/utils/PrivateRoute";
+import ClientOnly from "./ClientOnly";
 
 export default function PagesLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -23,16 +24,18 @@ export default function PagesLayout({ children }: { children: React.ReactNode })
   const currentTitle = pageTitles[pathname] || "";
 
   return (
-    <PrivateRoute>
-      <div className="flex h-screen">
-        <Sidebar sidebarOpen={sidebarOpen} />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <Navbar currentTitle={currentTitle} toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-          <main className="flex-1 overflow-auto p-6 bg-white">
-            {children}
-          </main>
+    <ClientOnly>
+      <PrivateRoute>
+        <div className="flex h-screen">
+          <Sidebar sidebarOpen={sidebarOpen} />
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <Navbar currentTitle={currentTitle} toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+            <main className="flex-1 overflow-auto p-6 bg-white">
+              {children}
+            </main>
+          </div>
         </div>
-      </div>
-    </PrivateRoute>
+      </PrivateRoute>
+    </ClientOnly>
   );
 }

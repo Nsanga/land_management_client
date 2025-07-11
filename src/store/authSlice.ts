@@ -29,7 +29,9 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   success: false,
-  user: null,
+  user: typeof window !== "undefined" 
+    ? JSON.parse(localStorage.getItem("authUser") || "null")
+    : null,
 };
 
 const authSlice = createSlice({
@@ -42,6 +44,7 @@ const authSlice = createSlice({
       state.success = false;
     },
     stopLoading: (state) => {
+      console.log('STOP_LOADING action received');
       state.loading = false;
       state.error = null;
       state.success = false;
@@ -66,7 +69,11 @@ const authSlice = createSlice({
       state.user = action.payload;
 
       if (typeof window !== "undefined") {
-        localStorage.setItem("authUser", JSON.stringify(action.payload));
+        try {
+          localStorage.setItem("authUser", JSON.stringify(action.payload));
+        } catch (e) {
+          console.error("Erreur de localStorage", e);
+        }
       }
     },
     loginFailure: (state, action: PayloadAction<string>) => {

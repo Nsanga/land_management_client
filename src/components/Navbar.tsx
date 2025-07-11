@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { logout } from '@/store/authSlice';
+import { logout, stopLoading } from '@/store/authSlice';
 
 export default function Navbar({ currentTitle, toggleSidebar }: {
     currentTitle: string;
@@ -40,13 +40,14 @@ export default function Navbar({ currentTitle, toggleSidebar }: {
                                 <Bell className="w-5 h-5 text-gray-600" />
                                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
                             </button>
-                            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                            <button onClick={() => router.push("/pages/settings")} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                                 <Settings className="w-5 h-5 text-gray-600" />
                             </button>
                             <button
                                 onClick={() => {
                                     dispatch(logout());
                                     router.push("/auth/login");
+                                    dispatch(stopLoading());
                                 }}
                                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                                 <LogOut className="w-5 h-5 text-gray-600" />
