@@ -34,10 +34,10 @@ export default function Dashboard() {
 
     // Données simulées
     const stats = [
-        { label: 'Demandes en cours', value: '24', change: '+12%', icon: Clock, color: 'bg-blue-500' },
-        { label: 'Demandes approuvées', value: '156', change: '+8%', icon: CheckCircle, color: 'bg-green-500' },
-        { label: 'Parcelles gérées', value: '89', change: '+15%', icon: Map, color: 'bg-purple-500' },
-        { label: 'Agents actifs', value: '12', change: '+2%', icon: Users, color: 'bg-orange-500' }
+        { label: 'Demandes en cours', value: '0', change: '+0%', icon: Clock, color: 'bg-blue-500' },
+        { label: 'Demandes approuvées', value: '0', change: '+0%', icon: CheckCircle, color: 'bg-green-500' },
+        // { label: 'Parcelles gérées', value: '89', change: '+15%', icon: Map, color: 'bg-purple-500' },
+        { label: 'Agents actifs', value: '0', change: '+0%', icon: Users, color: 'bg-orange-500' }
     ];
 
     const updateRequest = <T extends object>(partial: Partial<T>) => {
@@ -108,7 +108,7 @@ export default function Dashboard() {
     return (
         <div className="space-y-6">
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {stats.map((stat, index) => {
                     const Icon = stat.icon;
                     return (

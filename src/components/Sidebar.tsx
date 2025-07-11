@@ -20,10 +20,10 @@ export default function SideBar({ sidebarOpen }: {
     const menuItems = [
         { id: 'dashboard', label: 'Tableau de bord', icon: Home },
         { id: 'requests', label: 'Demandes', icon: FileText },
-        { id: 'properties', label: 'Propriétés', icon: Map },
+        // { id: 'properties', label: 'Propriétés', icon: Map },
         { id: 'agents', label: 'Agents', icon: Users },
-        { id: 'analytics', label: 'Analyses', icon: BarChart3 },
-        { id: 'messages', label: 'Messages', icon: MessageSquare },
+        // { id: 'analytics', label: 'Analyses', icon: BarChart3 },
+        // { id: 'messages', label: 'Messages', icon: MessageSquare },
         { id: 'settings', label: 'Paramètres', icon: Settings }
     ];
 
